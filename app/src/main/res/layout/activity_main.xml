@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/search_ble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="searchBle"
+            android:text="搜索蓝牙" />
+
+        <Button
+            android:id="@+id/stop_search_ble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="stopSearchBle"
+            android:text="停止搜素蓝牙" />
+
+        <Button
+            android:id="@+id/connect_ble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="connectBle"
+            android:text="连接蓝牙" />
+
+        <Button
+            android:id="@+id/disconnect_ble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="disConnectBle"
+            android:text="断开蓝牙" />
+
+        <Button
+            android:id="@+id/get_lock_secure_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getLockSecureInfo"
+            android:text="获取锁具安全信息" />
+
+        <Button
+            android:id="@+id/lock_or_unlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockOrUnlock"
+            android:text="开关锁" />
+
+        <Button
+            android:id="@+id/lock_or_unlock_in_service_lock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockOrUnlockInServiceLock"
+            android:text="开关服役锁" />
+
+        <Button
+            android:id="@+id/lock_or_unlock_in_service_lock_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockOrUnlockInServiceLockTest"
+            android:text="开关服役锁测试" />
+
+        <Button
+            android:id="@+id/lock_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockRegister"
+            android:text="注册锁具" />
+
+        <Button
+            android:id="@+id/lock_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockClear"
+            android:text="清空锁具" />
+
+        <Button
+            android:id="@+id/get_lock_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getLockInfo"
+            android:text="获取锁具信息" />
+
+        <Button
+            android:id="@+id/get_lock_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getLockStatus"
+            android:text="获取锁具状态" />
+
+        <Button
+            android:id="@+id/super_clear_lock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="superClearLock"
+            android:text="超级清空锁具" />
+
+    </LinearLayout>
+</ScrollView>
+
