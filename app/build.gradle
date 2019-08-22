@@ -19,9 +19,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':bluetoothbusiness')
     implementation 'com.stag:bluetooth:1.0.2'
-    implementation 'com.stag:bluetoothbusiness:1.0.0'
+    implementation 'com.stag:bluetoothbusiness:1.0.1'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
