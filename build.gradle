@@ -7,13 +7,9 @@ buildscript {
         maven {
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
         }
-        maven {
-            url "https://jitpack.io"
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
-        classpath 'com.novoda:bintray-release:0.9.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -26,24 +22,17 @@ allprojects {
         maven {
             url 'http://maven.aliyun.com/nexus/content/groups/public/'
         }
-        maven {
-            url "https://jitpack.io"
-        }
     }
 }
 
 ext {
 //  app 版本
     versionCode = 1
-    versionName = "1.8.3.0"
+    versionName = "1.0.0"
 //  编译版本
     compileSdkVersion = 28
     minSdkVersion = 18
     targetSdkVersion = 28
-
-    supportVersion = "28.0.0"
-    retrofitVersion = "2.0.0"
-    litepalVersion = "3.0.0"
 
 }
 

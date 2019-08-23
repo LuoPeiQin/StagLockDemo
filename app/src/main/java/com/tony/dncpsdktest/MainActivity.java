@@ -1,14 +1,20 @@
 package com.tony.dncpsdktest;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.stag.bluetooth.BluetoothController;
-import com.stag.bluetooth.BluetoothType;
 import com.stag.bluetooth.OnBluetoothConnectStateChangeListener;
 import com.stag.bluetooth.OnBluetoothScanListener;
 import com.stag.bluetooth.OnBluetoothStateChangeListener;
@@ -31,33 +37,69 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
     private BluetoothController mController;
     private DncpControl mDncpControl;
     // 测试数据
-    UUID testOrgKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff11");
-    UUID testOperateKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff22");
+    // 组织密钥，用于清空锁
+    private final UUID testOrgKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff11");
+    // 错误的组织密钥，用于校验只有正确的组织密钥才能清空锁
+    private final UUID errorTestOrgKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff10");
+    // 操作密钥，用于开关锁
+    private final UUID testOperateKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff22");
+    // 错误的操作密钥
+    private final UUID errorTestOperateKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff20");
+    // 要连接的蓝牙钥匙地址
+    private final String testBleMacAddress = "0C:B2:B7:3E:23:69";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData();
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 检查并申请定位权限
+        checkLocationPermission();
+    }
+
+    /**
+     * 申请定位权限，保证蓝牙功能的正常运行
+     */
+    private void checkLocationPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return;
+        }
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "没有定位权限蓝牙功能将无法正常使用", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    /**
+     * 不再使用蓝牙时，取消注册事件的监听
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mController != null) {
             mController.unregisterBluetoothStateChangeListener();
             mController.unregisterConnectStateChangeListener();
+            mController = null;
         }
     }
 
     private void initData() {
         initBluetooth();
         initDncp();
-        mController.setBluetoothType(BluetoothType.BLE);
-        mController.setBluetoothType(BluetoothType.TRADITION);
-        mController.setBleHighSpeedMode(true);
-
     }
 
     private void initDncp() {
@@ -96,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
             }
         });
         mController.setProtocol(new DncpProtocol(this, this));
-        mController.sendData(new byte[]{});
     }
 
     /**
@@ -124,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
 
     /**
      * 停止搜索蓝牙
+     * 搜索蓝牙会大量的占用系统资源，找到需要连接的设备之后，即可停止蓝牙的搜索
      */
     public void stopSearchBle(View v) {
         mController.stopScan();
@@ -133,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
      * 连接蓝牙
      */
     public void connectBle(View v) {
-        mController.connect("0C:B2:B7:3E:23:69");
+        mController.connect(testBleMacAddress);
     }
 
     /**
@@ -146,19 +188,6 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
     /**
      * ——————————————————锁具操作——————————————————————
      */
-    /**
-     * 获取锁具安全信息
-     */
-    public void getLockSecureInfo(View v) {
-//        mDncpControl.getSecureInfo(new OnDncpOperateResult<LockSecureInfo>() {
-//            @Override
-//            public void onResult(int code, String message, LockSecureInfo obj) {
-//                LogUtils.i(TAG + "lpq", "获取安全信息: code = " + code);
-//                LogUtils.i(TAG + "lpq", "获取安全信息: message = " + message);
-//                LogUtils.i(TAG + "lpq", "获取安全信息: obj = " + obj);
-//            }
-//        });
-    }
 
     /**
      * 开关锁
@@ -197,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
      * 测试开关服役中的锁
      */
     public void btnLockOrUnlockInServiceLockTest(View view) {
-        mDncpControl.lockOrUnlock(testOrgKey, new OnDncpOperateResult<Integer>() {
+        mDncpControl.lockOrUnlock(errorTestOperateKey, new OnDncpOperateResult<Integer>() {
             @Override
             public void onResult(int code, String message, Integer obj) {
                 LogUtils.i(TAG + "lpq", "开关锁: code = " + code);
@@ -226,6 +255,20 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
      */
     public void btnLockClear(View v) {
         mDncpControl.resetLock(testOrgKey, new OnDncpOperateResult() {
+            @Override
+            public void onResult(int code, String message, Object obj) {
+                LogUtils.i(TAG + "lpq", "清空: code = " + code);
+                LogUtils.i(TAG + "lpq", "清空: message = " + message);
+                LogUtils.i(TAG + "lpq", "清空: obj = " + obj);
+            }
+        });
+    }
+
+    /**
+     * 清空锁具测试
+     */
+    public void btnLockClearTest(View v) {
+        mDncpControl.resetLock(errorTestOrgKey, new OnDncpOperateResult() {
             @Override
             public void onResult(int code, String message, Object obj) {
                 LogUtils.i(TAG + "lpq", "清空: code = " + code);

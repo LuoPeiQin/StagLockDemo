@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
 
@@ -37,13 +37,6 @@
             android:layout_height="wrap_content"
             android:onClick="disConnectBle"
             android:text="断开蓝牙" />
-
-        <Button
-            android:id="@+id/get_lock_secure_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getLockSecureInfo"
-            android:text="获取锁具安全信息" />
 
         <Button
             android:id="@+id/lock_or_unlock"
@@ -81,6 +74,13 @@
             android:text="清空锁具" />
 
         <Button
+            android:id="@+id/lock_clear_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLockClearTest"
+            android:text="清空锁具测试" />
+
+        <Button
             android:id="@+id/get_lock_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,13 +93,6 @@
             android:layout_height="wrap_content"
             android:onClick="getLockStatus"
             android:text="获取锁具状态" />
-
-        <Button
-            android:id="@+id/super_clear_lock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="superClearLock"
-            android:text="超级清空锁具" />
 
     </LinearLayout>
 </ScrollView>
