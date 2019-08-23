@@ -149,6 +149,10 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
     public void searchBle(View v) {
         LogUtils.i(TAG + "lpq", "onClick: 开始搜蓝牙");
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Toast.makeText(this, "该设备没有蓝牙", Toast.LENGTH_SHORT).show();
+            return;
+        }
         LogUtils.i(TAG + "lpq", "onClick: " + bluetoothAdapter.isEnabled());
         mController.startScan(new OnBluetoothScanListener() {
             @Override
