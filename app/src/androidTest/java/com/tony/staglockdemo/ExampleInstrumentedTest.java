@@ -1,4 +1,4 @@
-package com.tony.dncpsdktest;
+package com.tony.staglockdemo;
 
 import android.content.Context;
 

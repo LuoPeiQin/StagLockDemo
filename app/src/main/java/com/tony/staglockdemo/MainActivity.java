@@ -1,4 +1,4 @@
-package com.tony.dncpsdktest;
+package com.tony.staglockdemo;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -25,7 +25,7 @@ import com.staginfo.segs.sterm.bluetooth.protocol.dncp.model.SensorStatus;
 import com.staginfo.segs.sterm.callback.OnDncpOperateResult;
 import com.staginfo.segs.sterm.entity.LockInfo;
 import com.staginfo.segs.sterm.entity.RegisterLockParameter;
-import com.tony.dncpsdktest.utils.LogUtils;
+import com.tony.staglockdemo.utils.LogUtils;
 
 import java.util.UUID;
 

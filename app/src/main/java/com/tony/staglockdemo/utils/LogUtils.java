@@ -1,8 +1,8 @@
-package com.tony.dncpsdktest.utils;
+package com.tony.staglockdemo.utils;
 
 import android.util.Log;
 
-import com.tony.dncpsdktest.BuildConfig;
+import com.tony.staglockdemo.BuildConfig;
 
 public class LogUtils {
 
