@@ -23,6 +23,7 @@ import com.staginfo.segs.sterm.bluetooth.protocol.dncp.DncpProtocol;
 import com.staginfo.segs.sterm.bluetooth.protocol.dncp.OnDncpEventListener;
 import com.staginfo.segs.sterm.bluetooth.protocol.dncp.model.SensorStatus;
 import com.staginfo.segs.sterm.callback.OnDncpOperateResult;
+import com.staginfo.segs.sterm.entity.KeyInfo;
 import com.staginfo.segs.sterm.entity.LockInfo;
 import com.staginfo.segs.sterm.entity.RegisterLockParameter;
 import com.tony.staglockdemo.utils.LogUtils;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
     // 错误的操作密钥
     private final UUID errorTestOperateKey = UUID.fromString("ffffffff-ffff-ffff-ffff-ffffffffff20");
     // 要连接的蓝牙钥匙地址
-    private final String testBleMacAddress = "0C:B2:B7:3E:23:69";
+//    private final String testBleMacAddress = "0C:B2:B7:3E:23:69";
+    private final String testBleMacAddress = "9C:1D:58:91:C2:5B";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -308,6 +310,21 @@ public class MainActivity extends AppCompatActivity implements OnDncpEventListen
                 LogUtils.i(TAG + "lpq", "获取锁具信息: code = " + code);
                 LogUtils.i(TAG + "lpq", "获取锁具信息: message = " + message);
                 LogUtils.i(TAG + "lpq", "获取锁具信息: obj = " + obj);
+            }
+        });
+    }
+
+    /**
+     * 获取钥匙信息
+     */
+    public void getKeyInfo(View v) {
+        LogUtils.i(TAG + "lpq", "getKeyInfo: ");
+        mDncpControl.getKeyInfo(new OnDncpOperateResult<KeyInfo>() {
+            @Override
+            public void onResult(int code, String message, KeyInfo obj) {
+                LogUtils.i(TAG + "lpq", "获取钥匙信息: code = " + code);
+                LogUtils.i(TAG + "lpq", "获取钥匙信息: message = " + message);
+                LogUtils.i(TAG + "lpq", "获取钥匙信息: obj = " + obj);
             }
         });
     }

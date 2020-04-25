@@ -88,6 +88,13 @@
             android:text="获取锁具信息" />
 
         <Button
+            android:id="@+id/get_key_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getKeyInfo"
+            android:text="获取钥匙信息" />
+
+        <Button
             android:id="@+id/get_lock_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
