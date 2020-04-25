@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020. stag All rights reserved.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DscpTestActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <Button
+                android:id="@+id/search_ble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="searchBle"
+                android:text="搜索蓝牙" />
+
+            <Button
+                android:id="@+id/stop_search_ble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="stopSearchBle"
+                android:text="停止搜素蓝牙" />
+
+            <Button
+                android:id="@+id/connect_ble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="connectBle"
+                android:text="连接蓝牙" />
+
+            <Button
+                android:id="@+id/disconnect_ble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="disConnectBle"
+                android:text="断开蓝牙" />
+
+            <Button
+                android:id="@+id/get_lock_secure_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getLockSecureInfo"
+                android:text="设置会话码" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btnUnLock"
+                android:text="开锁" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btnLock"
+                android:text="上锁" />
+
+<!--            <Button-->
+<!--                android:id="@+id/lock_or_unlock_in_service_lock"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="btnDeviceTest"-->
+<!--                android:text="设备测试" />-->
+
+            <Button
+                android:id="@+id/lock_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btnLockRegister"
+                android:text="注册锁具" />
+
+            <Button
+                android:id="@+id/lock_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="btnLockClear"
+                android:text="清空锁具" />
+
+            <Button
+                android:id="@+id/get_lock_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getLockInfo"
+                android:text="获取锁具信息" />
+
+            <Button
+                android:id="@+id/get_lock_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getLockStatus"
+                android:text="获取锁具状态" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

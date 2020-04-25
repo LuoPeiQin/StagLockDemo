@@ -31,7 +31,7 @@ ext {
     versionName = "1.0.0"
 //  编译版本
     compileSdkVersion = 28
-    minSdkVersion = 18
+    minSdkVersion = 21
     targetSdkVersion = 28
 
 }
