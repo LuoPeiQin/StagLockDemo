@@ -6,7 +6,7 @@
 
 ```java
 implementation 'com.stag:bluetooth:1.0.2'
-implementation 'com.stag:bluetoothbusiness:1.0.3'
+implementation 'com.stag:bluetoothbusiness:1.0.4'
 ```
 
 ### 生成包需要的so库
