@@ -30,13 +30,14 @@ import com.staginfo.segs.sterm.utils.ByteUtils;
 import com.tony.staglockdemo.utils.LogUtils;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class DscpTestActivity extends AppCompatActivity implements OnDscpEventListener, OnBluetoothStateChangeListener, OnBluetoothConnectStateChangeListener {
     private static final String TAG = "Dscp-";
     // 蓝牙相关
     private BluetoothController mController;
     // 测试数据
-    public String testOperateKey = "b2cce9be-1eff-4ae7-bd69-ed09a77f5f89";
+    public UUID testOperateKey = UUID.fromString("b2cce9be-1eff-4ae7-bd69-ed09a77f5f89");
     DscpUtil dscpUtil = new DscpUtil();
 
     @Override
@@ -69,8 +70,6 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
         mController = BluetoothController.getController(this);
         mController.registerBluetoothStateChangeListener(this);
         mController.registerConnectStateChangeListener(this);
-        mController.setProtocol(new DscpProtocol(this, this));
-        mController.sendData(new byte[]{});
     }
 
 
@@ -179,7 +178,8 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
      * 获取锁具安全信息
      */
     public void getLockSecureInfo(View v) {
-        dscpUtil.setSessionCode(1, new OnTimeoutResult<SecureInfo>() {
+        int userId = 1; // 用户ID
+        dscpUtil.setSessionCode(userId, new OnTimeoutResult<SecureInfo>() {
             @Override
             public void onResult(boolean isTimeout, SecureInfo result) {
                 LogUtils.d(TAG + "lpq", "onResult: " + result);
@@ -191,7 +191,12 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
      * 锁具注册
      */
     public void btnLockRegister(View v) {
-        dscpUtil.registerDevice(new Date(), testOperateKey, 1, 80, "nono",
+        Date curDate = new Date(); // 当前事件
+        UUID operateKey = testOperateKey; // 操作密钥，保护锁具安全，不能丢失！
+        int userId = 1; // 用户ID
+        int ipPort = 80; // 联网ip端口号：设备是NB联网设备时，该参数有效
+        String ip = "no"; // 联网ip：设备是NB联网设备时，该参数有效
+        dscpUtil.registerDevice(curDate, operateKey, userId, ipPort, ip,
                 new OnTimeoutResult<Boolean>() {
                     @Override
                     public void onResult(boolean isTimeout, Boolean result) {
@@ -204,7 +209,10 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
      * 清空锁具（恢复出厂设置）
      */
     public void btnLockClear(View v) {
-        dscpUtil.operateDevice(new Date(), (byte) 3, 1, (byte) 1, new OnTimeoutResult<Boolean>() {
+        Date curDate = new Date(); // 当前事件
+        int userId = 1; // 用户ID
+        byte lockIndex = 1; // 锁具下标（从1开始计数）
+        dscpUtil.clear(curDate, userId, lockIndex, new OnTimeoutResult<Boolean>() {
             @Override
             public void onResult(boolean isTimeout, Boolean result) {
                 LogUtils.d(TAG + "lpq", "onResult: 清空结果 = " + result);
@@ -216,7 +224,10 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
      * 开锁
      */
     public void btnUnLock(View view) {
-        dscpUtil.operateDevice(new Date(), (byte) 1, 1, (byte) 1, new OnTimeoutResult<Boolean>() {
+        Date curDate = new Date(); // 当前事件
+        int userId = 1; // 用户ID
+        byte lockIndex = 1; // 锁具下标（从1开始计数）
+        dscpUtil.unlock(curDate, userId, lockIndex, new OnTimeoutResult<Boolean>() {
             @Override
             public void onResult(boolean isTimeout, Boolean result) {
                 LogUtils.d(TAG + "lpq", "onResult: 开锁结果 = " + result);
@@ -228,7 +239,10 @@ public class DscpTestActivity extends AppCompatActivity implements OnDscpEventLi
      * 上锁
      */
     public void btnLock(View view) {
-        dscpUtil.operateDevice(new Date(), (byte) 2, 1, (byte) 1, new OnTimeoutResult<Boolean>() {
+        Date curDate = new Date(); // 当前事件
+        int userId = 1; // 用户ID
+        byte lockIndex = 1; // 锁具下标（从1开始计数）
+        dscpUtil.lock(curDate, userId, lockIndex, new OnTimeoutResult<Boolean>() {
             @Override
             public void onResult(boolean isTimeout, Boolean result) {
                 LogUtils.d(TAG + "lpq", "onResult: 上锁结果 = " + result);

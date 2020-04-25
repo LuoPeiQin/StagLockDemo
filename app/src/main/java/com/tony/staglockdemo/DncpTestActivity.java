@@ -46,13 +46,14 @@ public class DncpTestActivity extends AppCompatActivity implements OnBluetoothSt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dncp_test);
+        initData();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onStart() {
         super.onStart();
-        requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     @Override
@@ -80,7 +81,6 @@ public class DncpTestActivity extends AppCompatActivity implements OnBluetoothSt
         mController = BluetoothController.getController(this);
         mController.registerBluetoothStateChangeListener(this);
         mController.registerConnectStateChangeListener(this);
-        mController.sendData(new byte[]{});
     }
 
     /**
