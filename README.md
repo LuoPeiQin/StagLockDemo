@@ -3,5 +3,5 @@
 ## DNCP 协议
 https://github.com/LuoPeiQin/StagLockDemo/blob/master/DNCP.md
 
-## DSCP 协议
-https://github.com/LuoPeiQin/StagLockDemo/blob/master/DSCP.md
+## BSCP 协议
+https://github.com/LuoPeiQin/StagLockDemo/blob/master/BSCP.md
