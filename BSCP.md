@@ -3,8 +3,8 @@
 ## 如何使用
 ### 导入包
 ```java
-implementation 'com.stag:bluetooth:1.0.3'
-implementation 'com.stag:bluetoothbusiness:1.0.7'
+implementation 'com.stag:bluetooth:1.0.4'
+implementation 'com.stag:bluetoothbusiness:1.0.9'
 ```
 ## 基础概念
 ### 锁具基本信息
